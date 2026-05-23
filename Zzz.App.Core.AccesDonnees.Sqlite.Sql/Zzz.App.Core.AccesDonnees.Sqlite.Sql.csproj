@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <AssemblyName>Zzz.App.Core.AccesDonnees.SqLite.Sql</AssemblyName>
+    <RootNamespace>Zzz.App.Core.AccesDonnees.SqLite.Sql</RootNamespace>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.9" />
+    <PackageReference Include="Zzz.App.Core.AccesDonnees.Sql" Version="8.0.1.8" />
+  </ItemGroup>
+
+</Project>

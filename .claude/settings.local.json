@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo '{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"C:\\\\\\\\Users\\\\\\\\Public\\\\\\\\Developpement\\\\\\\\Cataloger\\\\\\\\Cataloger\\\\\\\\Services\\\\\\\\SystemParameterService.cs\"}}')",
+      "Bash(powershell.exe -NonInteractive -ExecutionPolicy Bypass -File \".claude/hooks/format-cs.ps1\")",
+      "Bash(echo \"exit:$?\")",
+      "Bash(printf '{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\Public\\\\\\\\\\\\\\\\Developpement\\\\\\\\\\\\\\\\Cataloger\\\\\\\\\\\\\\\\Cataloger\\\\\\\\\\\\\\\\Services\\\\\\\\\\\\\\\\SystemParameterService.cs\"}}')",
+      "Bash(powershell.exe -NonInteractive -ExecutionPolicy Bypass -Command '$raw=[Console]::In.ReadToEnd\\(\\);$json=$raw|ConvertFrom-Json;$f=$json.tool_input.file_path;if\\($null -ne $f -and $f -match \"\\\\.cs$\"\\){echo \"would format: $f\"}')",
+      "PowerShell(Get-Content 'C:\\\\Users\\\\Public\\\\Developpement\\\\Cataloger\\\\.claude\\\\settings.json' | ConvertFrom-Json | Select-Object -ExpandProperty hooks | Select-Object -ExpandProperty PostToolUse | ForEach-Object { $_.hooks | ForEach-Object { $_.command } })",
+      "PowerShell(dotnet format *)",
+      "Bash(where gh *)"
+    ]
+  }
+}
