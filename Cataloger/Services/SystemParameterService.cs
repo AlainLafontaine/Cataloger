@@ -1,4 +1,4 @@
-﻿using BaseWinform.AccesAction;
+using BaseWinform.AccesAction;
 using Cataloger.Business.ParametresSystemes;
 using Cataloger.Core.Entities.SystemsParameters.Dto;
 
@@ -52,7 +52,6 @@ namespace Cataloger.Presenters
         {
             IEnumerable<SystemParameterDto>? dtos = null;
 
-            if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
             get($"systems-parameters/sections/{section}", out dtos);
             return dtos!;
         }
