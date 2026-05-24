@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="SQLDBFiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cataloger.Core\Cataloger.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="catalog_initiale.sqlite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>catalog.sqlite</TargetPath>
+    </None>
+    <None Update="catalog_test_data.sqlite">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <TargetPath>catalog.sqlite</TargetPath>
+    </None>
+   </ItemGroup>
+
+</Project>

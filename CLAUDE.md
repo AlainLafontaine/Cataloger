@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Developer role
+
+See [.claude/memory/roles/developpeur.md](.claude/memory/roles/developpeur.md) for the expected developer profile, technical expertise, and communication style to apply in this project.
+
 ## Solution structure
 
 Multi-project .NET 8.0 solution (`Cataloger.sln`). Each project has a fixed role:
