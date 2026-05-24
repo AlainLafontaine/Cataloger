@@ -1,4 +1,4 @@
-﻿using BaseWinform.Controls;
+using BaseWinform.Controls;
 
 namespace Cataloger.Controls
 {

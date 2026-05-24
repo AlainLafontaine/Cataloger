@@ -87,3 +87,6 @@ secrets.json
 ## Publish output
 publish/
 **/publish/
+
+## Claude
+.claude/info/

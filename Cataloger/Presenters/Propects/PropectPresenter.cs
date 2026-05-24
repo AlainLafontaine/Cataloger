@@ -4,7 +4,7 @@ using Cataloger.Views;
 
 namespace Cataloger.Presenters.Propects
 {
-    [PresenterURL("propect")]
+    [PresenterURL("propects")]
     public class PropectPresenter : CatalogerPresenter<IPropectView>
     {
         public PropectPresenter(

@@ -4,7 +4,7 @@ using Cataloger.Views;
 
 namespace Cataloger.Presenters.LibrariesMngr
 {
-    [PresenterURL("library-manager")]
+    [PresenterURL("libraries-manager")]
     public class LibraryMngrPresenter : CatalogerPresenter<ILibraryMngrView>
     {
         public LibraryMngrPresenter(
