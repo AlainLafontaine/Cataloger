@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zzz.App.Core;
+﻿using Zzz.App.Core;
 
 namespace BaseWinform.Entites
 {

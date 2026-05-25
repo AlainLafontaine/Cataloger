@@ -1,4 +1,5 @@
 ﻿using BaseWinform.Composantes;
+using BaseWinform.Entites;
 using BaseWinform.EventsArgs;
 using BaseWinform.Interfaces;
 using BaseWinform.Utilitaires;
@@ -28,6 +29,9 @@ namespace BaseWinform.Presenters
         /// Référence sur les données transférées à ce Presenter
         /// </summary>
         public ITransfertData? TransfertData { get => Parent.TransfertData; }
+        
+        public ITransfertData? RetourneData { get => Parent.TransfertData; }
+
 
         /// <summary>
         /// Liste des paramètres extrait de l'url du Presenter
@@ -53,6 +57,10 @@ namespace BaseWinform.Presenters
         public virtual void InitPresenter(object? sender, EventArgs? e) { Initialise = true; }
 
         public virtual void ReleasePresenter() { _composante = default; }
+
+        public virtual void RestorePresenter() { }
+
+        public void AfficherMsg(WinformActionMessage msg) => Parent.AfficherMsg(msg);
 
         public void RemiseAZeroIsDirty() => Parent?.RemiseAZeroIsDirty();
 

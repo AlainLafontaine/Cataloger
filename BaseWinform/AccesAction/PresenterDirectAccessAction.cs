@@ -26,7 +26,7 @@ namespace BaseWinform.AccesAction
     /// </summary>
     public class PresenterDirectAccessAction : IWinformPresenter
     {
-        public static Dictionary<string, List<RequeteToAction>> ActionURLToActionItem = new Dictionary<string, List<RequeteToAction>>();
+        public static Dictionary<string, List<RequeteToAction>> ActionURLToActionItem = new();
         public static Action<WinformActionMessage>? transmettreWinformActionMessage = null;
         public static IFactory? factory = null;
 
@@ -39,7 +39,7 @@ namespace BaseWinform.AccesAction
             Action<string, TypeRequete, Type> typeRequeteLieItemAction = (url, typeRequete, item) => {
                 if (!ActionURLToActionItem.TryGetValue(url.ToLower(), out List<RequeteToAction>? list))
                 {
-                    list = new List<RequeteToAction>();
+                    list = new();
                     ActionURLToActionItem.Add(url.ToLower(), list);
                 }
 
@@ -81,7 +81,7 @@ namespace BaseWinform.AccesAction
 
         public void AfficherMsg(string msg, ConstantesNoyau.ActionMsgType msgType = ConstantesNoyau.ActionMsgType.success)
         {
-            WinformActionMessage message = new WinformActionMessage(msg)
+            WinformActionMessage message = new(msg)
             {
                 type = msgType
             };
@@ -166,12 +166,12 @@ namespace BaseWinform.AccesAction
             dto = default;
             if (itemTypeLieParam == null)
             {
-                Reponse reponse = new Reponse();
+                Reponse reponse = new();
                 reponse.AddMsg("URL est invalide, pas de end-point");
 
                 if (Echec?.Invoke(reponse) ?? false || Echec == null && afficheMsg)
                 {
-                    WinformActionMessage msg = new WinformActionMessage("URL est invalide, pas de end-point")
+                    WinformActionMessage msg = new("URL est invalide, pas de end-point")
                     {
                         type = ConstantesNoyau.ActionMsgType.success
                     };
@@ -208,12 +208,12 @@ namespace BaseWinform.AccesAction
 
             if (itemTypeLieParam == null)
             {
-                Reponse reponse = new Reponse();
+                Reponse reponse = new();
                 reponse.AddMsg("URL est invalide, pas de end-point");
 
                 if (Echec?.Invoke(reponse) ?? false || Echec == null && afficheMsg)
                 {
-                    WinformActionMessage msg = new WinformActionMessage("URL est invalide, pas de end-point")
+                    WinformActionMessage msg = new("URL est invalide, pas de end-point")
                     {
                         type = ConstantesNoyau.ActionMsgType.success
                     };
@@ -251,7 +251,7 @@ namespace BaseWinform.AccesAction
             dto = default;
             if (itemTypeLieParam == null)
             {
-                Reponse reponse = new Reponse();
+                Reponse reponse = new();
                 reponse.AddMsg("URL est invalide, pas de end-point");
 
                 if (Echec?.Invoke(reponse) ?? false || Echec == null && afficheMsg)
@@ -288,7 +288,7 @@ namespace BaseWinform.AccesAction
 
             if (itemTypeLieParam == null)
             {
-                Reponse reponse = new Reponse();
+                Reponse reponse = new();
                 reponse.AddMsg("URL est invalide, pas de end-point");
 
                 if (Echec?.Invoke(reponse) ?? false || Echec == null && afficheMsg)
@@ -314,7 +314,7 @@ namespace BaseWinform.AccesAction
 
         protected dynamic? ConstruireBodies(params Expression<Func<dynamic?>>[] expressions)
         {
-            List<(string, dynamic)> retour = new List<(string, dynamic)>();
+            List<(string, dynamic)> retour = new();
 
             foreach (var expression in expressions)
             {
@@ -342,7 +342,7 @@ namespace BaseWinform.AccesAction
             // Recherche le contrôle a instancier selon url passé en paramètre
             string[] subURLs = URL.Split('/');
             string keyTrouvee = "";
-            List<ParametrePresenterURL> parametres = new List<ParametrePresenterURL>();
+            List<ParametrePresenterURL> parametres = new();
 
             foreach (string key in ActionURLToActionItem!.Keys)
             {

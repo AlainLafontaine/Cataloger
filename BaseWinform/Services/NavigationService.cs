@@ -249,6 +249,7 @@ namespace BaseWinform.Services
             presenterPrecedents2.RemoveAt(presenterPrecedents2.Count - 1);
 
             ReleasePresenter(currentPresenter);
+            presenter.InjectionRetourDonneesNavigationPrecedente(data);
             currentPresenter = presenter;
             mainForm!.RestorePresenter(presenter);
         }

@@ -3,15 +3,9 @@ using BaseWinform.EventsArgs;
 using BaseWinform.Interfaces;
 using BaseWinform.Services;
 using BaseWinform.Utilitaires;
-using DevExpress.CodeParser;
-using DevExpress.Utils.Extensions;
 using DevExpress.XtraEditors;
-using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Reflection;
-using System;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 
 namespace BaseWinform.Composantes
@@ -19,7 +13,6 @@ namespace BaseWinform.Composantes
     public partial class BaseComposante : NavigationCtrl, IBaseComposante, IInjectionDonneeesNavigation
     {
         static public Dictionary<string, Type> childPresenters = new();
-
 
         public static bool HasEventHandler(Control control, string eventName)
         {

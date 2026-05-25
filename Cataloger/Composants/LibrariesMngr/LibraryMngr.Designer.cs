@@ -141,8 +141,6 @@ namespace Cataloger.Composants
             // category
             // 
             category.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            category.Appearance.BackColor = Color.Red;
-            category.Appearance.Options.UseBackColor = true;
             category.Location = new Point(729, 3);
             category.Name = "category";
             category.NavigationService = null;
@@ -151,8 +149,6 @@ namespace Cataloger.Composants
             // 
             // LibraryMngr
             // 
-            Appearance.BackColor = Color.FromArgb(255, 192, 192);
-            Appearance.Options.UseBackColor = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(category);

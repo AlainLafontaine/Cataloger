@@ -14,7 +14,16 @@ namespace BaseWinform.Controls
 
     public partial class IterateurDataCtrl : BaseCtrl
     {
-        public int SelectedIndex { get => selectedIndex; set => MajIndexCourant(AccesItem.DirectItem, value); }
+        public int SelectedIndex { 
+            get => selectedIndex;
+            set
+            {
+                if (selectedIndex != value)
+                {
+                    MajIndexCourant(AccesItem.DirectItem, value);
+                }
+            }
+        }
 
         private TypeAccesDirectItem typeAccesDirectItem;
 

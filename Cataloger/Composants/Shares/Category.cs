@@ -17,6 +17,7 @@ namespace Cataloger.Composants
         public Category()
         {
             InitializeComponent();
+            customBorder.Left.Visible = true;
         }
     }
 }

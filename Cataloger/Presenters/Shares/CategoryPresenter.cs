@@ -8,9 +8,7 @@ namespace Cataloger.Presenters.Shares
     {
 
         public CategoryPresenter(
-            ICategoryView view
         )
-        : base(view)
         {
 
         }

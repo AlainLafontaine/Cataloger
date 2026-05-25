@@ -1,4 +1,4 @@
-﻿using BaseWinform.AccesAction;
+using BaseWinform.AccesAction;
 using BaseWinform.Composantes;
 using BaseWinform.Entites;
 using BaseWinform.EventsArgs;
@@ -14,7 +14,6 @@ namespace BaseWinform.Forms
     public partial class BaseForm : XtraForm
     {
         protected NavigationService? navigationService = null;
-        protected DevExpressRestoreService? restaureService = null;
 
         private dynamic? presenter;
 
@@ -54,9 +53,12 @@ namespace BaseWinform.Forms
             /* Version avec AlertControl
             InitAlert();*/
 
+            // Mise en place des connection pour l'envoie de message
+            PresenterDirectAccessAction.transmettreWinformActionMessage += AfficherWinformActionMessage;
+            NavigationService.transmettreWinformActionMessage += AfficherWinformActionMessage;
+
             // Affectation des services
             this.navigationService = navigationService;
-            this.restaureService = restaureService;
 
             // Initialisation du help pour l'affichage des messages
             messageEnAttente = new();
@@ -88,7 +90,13 @@ namespace BaseWinform.Forms
             composante.InjectionDonneesNavigation(presenter.Parametres, presenter.TransfertData);
             // Alain à supprimer Fin
 
+            if (this.presenter != null)
+            {
+                ((BasePresenter)this.presenter).transmettreWinformActionMessage -= AfficherWinformActionMessage;
+            }
+
             this.presenter = presenter;
+            ((BasePresenter)this.presenter).transmettreWinformActionMessage += AfficherWinformActionMessage;
 
             // Création des ChildPresenters pour les ChildComposantes inclus en mode design
             List<ChildComposante> ctrls = GetAllCtrlOfType<ChildComposante>(composante);
@@ -123,10 +131,14 @@ namespace BaseWinform.Forms
                 {
                     ((IBasePresenter)this.presenter).envoyerCorrespondance -= childPresenter.RecevoirCorrespondance;
                 }
+
+                ((BasePresenter)this.presenter).transmettreWinformActionMessage -= AfficherWinformActionMessage;
             }
 
             RestoreComposante(composante);
             this.presenter = presenter;
+            ((BasePresenter)this.presenter).transmettreWinformActionMessage += AfficherWinformActionMessage;
+            this.presenter.RestorePresenter();
 
             composante.Dock = DockStyle.Fill;
             FixeNavigationServiceToCtrl<INavigationCtrl>(this);
@@ -179,14 +191,6 @@ namespace BaseWinform.Forms
 
         protected virtual void OnInitialized()
         {
-            // Restore si les données
-            string? id = restaureService?.MakeKey(this);
-
-            if (restaureService?.Contains(id ?? "Nom défini") ?? false)
-            {
-                restaureService!.RestoreFormState(this, id ?? "Nom défini");
-                restaureService.Remove(id ?? "Nom défini");
-            }
         }
 
         protected virtual void MajEtatControl()
@@ -217,11 +221,13 @@ namespace BaseWinform.Forms
             return childPresenter;
         }
 
+        private void AfficherWinformActionMessage(WinformActionMessage msg)
+        {
+            ShowNotification(msg);
+        }
+
         private void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (IsDesignMode() || restaureService is null) return;
-
-            restaureService!.SaveFormState(this, restaureService!.MakeKey(this));
         }
 
         /* Version avec AlertControl

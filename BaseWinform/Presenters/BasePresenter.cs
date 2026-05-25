@@ -1,16 +1,27 @@
-﻿using BaseWinform.EventsArgs;
+﻿using BaseWinform.Entites;
+using BaseWinform.EventsArgs;
 using BaseWinform.Interfaces;
 using BaseWinform.Utilitaires;
 using DevExpress.Utils;
 
 namespace BaseWinform.Presenters
 {
+    public class BasePresenter
+    {
+        public Action<WinformActionMessage>? transmettreWinformActionMessage = null;
+    }
+
     /// <summary>
     /// Fonctionnalité de commune aux Presenter
     /// </summary>
     /// <typeparam name="I"></typeparam> Le type de la composante
-    public class BasePresenter<I> : IAddAndRemoveChildPresenter, IChildPresenterDataShared, IUrlPresenter, IDirtyPresenter, IBasePresenter<I> where I : IBaseComposante
+    public class BasePresenter<I> : BasePresenter, IAddAndRemoveChildPresenter, IChildPresenterDataShared, IUrlPresenter, IDirtyPresenter, IBasePresenter<I> where I : IBaseComposante
     {
+        /// <summary>
+        /// Responsable de transmettre des messages suite à une action de 
+        /// navigation
+        /// </summary>
+
         public event EnvoyerCorrespondanceHandler? envoyerCorrespondance = null;
 
         /// <summary>
@@ -28,6 +39,7 @@ namespace BaseWinform.Presenters
         /// Référence sur les données transférées à ce Presenter
         /// </summary>
         public ITransfertData? TransfertData { get; set; } = null;
+        public ITransfertData? RetourneData { get; set; } = null;
 
         /// <summary>
         /// Liste des paramètres extrait de l'url du Presenter
@@ -69,6 +81,11 @@ namespace BaseWinform.Presenters
             TransfertData = transfertData;
         }
 
+        public void InjectionRetourDonneesNavigationPrecedente(ITransfertData? retourneData)
+        {
+            RetourneData = retourneData;
+        }
+
         /// <summary>
         /// Demande l'initialisation de la composante associé à ce Presenter
         /// </summary>
@@ -95,6 +112,17 @@ namespace BaseWinform.Presenters
                 child.ReleasePresenter();
             }
             childPresenters.Clear();
+        }
+
+        public virtual void RestorePresenter() { }
+
+        /// <summary>
+        /// Affiche un message suite à une action
+        /// </summary>
+        /// <param name="msg"></param>
+        public void AfficherMsg(WinformActionMessage msg)
+        {
+            transmettreWinformActionMessage?.Invoke(msg);
         }
 
         public void AcceptChanges() => RemiseAZeroIsDirty();
@@ -135,7 +163,6 @@ namespace BaseWinform.Presenters
         public void Deposer<T>(string id, T t)
         {
             Guard.ArgumentNotNull(t, nameof(t));
-
             childPresenterDataShared[id] = (object)t!;
         }
 

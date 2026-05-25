@@ -32,8 +32,6 @@ namespace Cataloger.Composants
             // 
             // Categories
             // 
-            Appearance.BackColor = Color.Red;
-            Appearance.Options.UseBackColor = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             Name = "Categories";

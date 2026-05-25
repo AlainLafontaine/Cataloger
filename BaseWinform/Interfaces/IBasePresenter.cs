@@ -1,4 +1,5 @@
-﻿using BaseWinform.EventsArgs;
+﻿using BaseWinform.Entites;
+using BaseWinform.EventsArgs;
 using BaseWinform.Utilitaires;
 using DevExpress.CodeParser;
 using System;
@@ -18,6 +19,10 @@ namespace BaseWinform.Interfaces
         void InitPresenter(object? sender, EventArgs? e);
         
         void ReleasePresenter();
+
+        void RestorePresenter();
+
+        void AfficherMsg(WinformActionMessage msg);
 
         void RemiseAZeroIsDirty();
 

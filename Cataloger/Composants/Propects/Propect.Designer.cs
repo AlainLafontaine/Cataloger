@@ -139,8 +139,6 @@ namespace Cataloger.Composants
             // 
             // Propect
             // 
-            Appearance.BackColor = SystemColors.Control;
-            Appearance.Options.UseBackColor = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             Name = "Propect";

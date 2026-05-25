@@ -33,7 +33,7 @@ namespace BaseWinform.Composantes
     {
         private static readonly Dictionary<BaseEdit, bool> _values = new();
 
-        public static void SetIgnoreIsDirty(BaseEdit edit, bool value)
+        public static void SetIgnoreIsDirty(BaseEdit edit, bool value = true)
         {
             _values[edit] = value;
         }
