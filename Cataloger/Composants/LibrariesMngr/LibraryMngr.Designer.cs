@@ -15,6 +15,7 @@ namespace Cataloger.Composants
 
         private new void InitializeComponent()
         {
+            category = new Cataloger.Composants.Category();
             SuspendLayout();
             // 
             // btnPrecedent
@@ -137,15 +138,34 @@ namespace Cataloger.Composants
             btnAnnuler.AppearancePressed.Options.UseForeColor = true;
             btnAnnuler.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
+            // category
+            // 
+            category.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            category.Appearance.BackColor = Color.Red;
+            category.Appearance.Options.UseBackColor = true;
+            category.Location = new Point(729, 3);
+            category.Name = "category";
+            category.NavigationService = null;
+            category.Size = new Size(215, 561);
+            category.TabIndex = 64;
+            // 
             // LibraryMngr
             // 
             Appearance.BackColor = Color.FromArgb(255, 192, 192);
             Appearance.Options.UseBackColor = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(category);
             Name = "LibraryMngr";
-            Size = new Size(800, 450);
+            Size = new Size(947, 567);
+            Controls.SetChildIndex(btnAnnuler, 0);
+            Controls.SetChildIndex(btnEnregistrer, 0);
+            Controls.SetChildIndex(btnSupprimer, 0);
+            Controls.SetChildIndex(btnPrecedent, 0);
+            Controls.SetChildIndex(category, 0);
             ResumeLayout(false);
         }
+
+        private Category category;
     }
 }

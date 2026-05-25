@@ -7,13 +7,7 @@ namespace Cataloger.Controls
         public LeftSideToolbar()
         {
             InitializeComponent();
-            customBorder.Top.Visible = true;
             customBorder.Right.Visible = true;
-        }
-
-        private void LeftSideToolbar_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

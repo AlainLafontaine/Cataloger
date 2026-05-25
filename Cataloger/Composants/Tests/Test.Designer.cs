@@ -1,4 +1,4 @@
-﻿namespace Cataloger.Composants.Tests
+namespace Cataloger.Composants
 {
     partial class Test
     {

@@ -1,4 +1,4 @@
-﻿using Cataloger.Core.Entities.SystemsParameters.Dto;
+using Cataloger.Core.Entities.SystemsParameters.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +20,11 @@ namespace Cataloger.Views
         // ---------------------------------------------------
         
         SystemParameterDto? SkinStyleActif { get; set;  }
+
+        // ---------------------------------------------------
+        // --- Les évênements                              ---
+        // ---------------------------------------------------
+
+        event EventHandler? OnSkinStyleChanged;
     }
 }

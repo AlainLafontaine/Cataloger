@@ -1,19 +1,24 @@
-﻿using BaseWinform.Attributes;
-using Cataloger.Views;
+using BaseWinform.Attributes;
+using BaseWinform.Composantes;
 using Cataloger.Communs;
 using Cataloger.Composantes;
 using Cataloger.Core.Entities.SystemsParameters.Dto;
+using Cataloger.Views;
 using DevExpress.LookAndFeel;
 
 namespace Cataloger.Composants
 {
     public partial class SystemParameter : CatalogerComposante, ISystemParameterView
     {
+        public event EventHandler? OnSkinStyleChanged;
+
+
         public SystemParameterDto? SkinStyleActif { get; set; } 
 
         public SystemParameter()
         {
             InitializeComponent();
+            BaseEditIgnoreIsDirtyHelper.SetIgnoreIsDirty(cbboxSkinStyle, true);
         }
 
         public void LoadSkinStyles(
@@ -35,6 +40,10 @@ namespace Cataloger.Composants
                         cbboxSkinStyle.SelectedIndex = index;
                     }
                 }
+                else
+                {
+                    SkinStyleActif = skinStyle;
+                }
             }
             cbboxSkinStyle.SelectedIndexChanged += cbboxSkinStyle_SelectedIndexChanged;
         }
@@ -43,8 +52,8 @@ namespace Cataloger.Composants
         {
             WrapItem<SystemParameterDto>? item = (WrapItem<SystemParameterDto>)cbboxSkinStyle.Properties.Items[cbboxSkinStyle.SelectedIndex];
 
-            // skinStyle!.ValString = item.Data.ValString;
-            // systemParametersPresenter.ModifySystemParameter(skinStyle);
+            SkinStyleActif!.ValString = item.Data.ValString;
+            OnSkinStyleChanged?.Invoke(this, e);
         }
     }
 }

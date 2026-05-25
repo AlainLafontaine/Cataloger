@@ -8,6 +8,7 @@ using Cataloger.Core.Entities.SystemsParameters.Dto;
 using Cataloger.Presenters;
 using Cataloger.Presenters.Bases;
 using DevExpress.LookAndFeel;
+using DevExpress.Skins;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,6 +31,7 @@ namespace Cataloger
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            SkinManager.EnableFormSkins();
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
@@ -38,18 +40,21 @@ namespace Cataloger
             var host = CreateHostBuilder().Build();
             var config = host.Services.GetRequiredService<IConfigurationApp>();
 
-            // R�solution des composante via DI
+            // Résolution des composante via DI
             var factory = host.Services.GetRequiredService<IFactory>();
             var navigationService = host.Services.GetRequiredService<NavigationService>();
             var sysParamService = host.Services.GetRequiredService<SystemParameterService>();
 
             PresenterDirectAccessAction.Init("Cataloger.Business.dll");
             PresenterDirectAccessAction.factory = factory;
+
+            // Pour le support création vis DI des presenter
             CatalogerChildComposante.Factory = factory;
 
             // Appliquer le skin DevExpress
             SystemParameterDto? skinStyle = sysParamService!.GetSystemParameter("Skin style", "Actif");
 
+            // Si pas de skin style défini dans les paramètres systèmes, on utilise un skin par défaut
             if (skinStyle == null)
             {
                 skinStyle = new SystemParameterDto();
@@ -59,13 +64,12 @@ namespace Cataloger
                 skinStyle.Description = "Skin style actif de l'application";
                 skinStyle.ValString = "WXI";
             }
-
             UserLookAndFeel.Default.SetSkinStyle(skinStyle.ValString);
 
-
-            // Chargement de MainForm de l'application
+            // Permet de déterminer si on est en mode design
             var isDesignModeService = host.Services.GetRequiredService<IsDesignModeService>();
 
+            // Chargement de MainForm de l'application
             bool modeTest = bool.Parse(config["App:Demarrer:ModeTest"]) || (Control.ModifierKeys & Keys.Control) == Keys.Control;
             MainForm mainForm = new MainForm(
                 navigationService,
@@ -75,13 +79,13 @@ namespace Cataloger
             );
             //Type type = typeof(CatalogerComposante);
 
-            // Initialisation des r�f�rence pour DI
+            // Initialisation des référence pour DI
             navigationService?.Init(mainForm, typeof(CatalogerPresenter<>), [typeof(CatalogerComposante).Assembly]);
 
-            // Chargement de la premi�re composante
+            // Chargement de la première composante
             navigationService!.ShowPremierePage(config[modeTest ? "App:Demarrer:PresenterTest" : "App:Demarrer:Presenter"]);
 
-            // V�rifie si on doit ouvrir en mode plien page
+            // Vérifie si on doit ouvrir en mode plien page
             if (bool.Parse(config["App:Demarrer:Maximized"]))
             {
                 mainForm.WindowState = FormWindowState.Maximized;
@@ -99,7 +103,7 @@ namespace Cataloger
             {
                 var startup = new Startup();
                 startup.ConfigureServices(services);
-                // Enregistrement des d�pendances ici
+                // Enregistrement des dépendances ici
             });
     }
 }

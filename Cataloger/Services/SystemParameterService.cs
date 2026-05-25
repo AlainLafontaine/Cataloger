@@ -28,7 +28,6 @@ namespace Cataloger.Presenters
         {
             bool success = false;
 
-            if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
             put<SystemParameterDto>($"systems-parameters/{systemParameter.SystemParameterId}", systemParameter, out _,
                 Succes: (dto) =>
                 {

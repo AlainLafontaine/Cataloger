@@ -1,4 +1,4 @@
-﻿using BaseWinform.Composantes;
+using BaseWinform.Composantes;
 using BaseWinform.Forms;
 using BaseWinform.Interfaces;
 using BaseWinform.Services;
@@ -18,6 +18,9 @@ using Zzz.App.Service.Core.IoC;
 
 namespace Cataloger
 {
+    // if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
+
+
     public class Startup : ZzzServiceStartup
     {
         protected override void ConfigureServicesApp(IServiceCollection services)
@@ -85,13 +88,13 @@ namespace Cataloger
         private void AddPresenter(IServiceCollection serviceCollection)
         {
             // Ajoute dans le DI de Microsoft pour les types dérivés de IImaPresenter
-            Type typeImaPresenter = typeof(ICatalogerPresenter);
+            Type typePresenter = typeof(ICatalogerPresenter);
 
-            foreach (Type item in TypeGetter.GetClassTypesByBaseType(typeImaPresenter, this.GetType().Assembly))
+            foreach (Type item in TypeGetter.GetClassTypesByBaseType(typePresenter, this.GetType().Assembly))
             {
                 var name = item.Name.Split('`');
 
-                if (item.Name != typeImaPresenter.Name && name[0] != "CatalogerPresenter")
+                if (item.Name != typePresenter.Name && name[0] != "CatalogerPresenter")
                 {
                     Type[] interfaces = item.GetInterfaces();
 
@@ -100,13 +103,13 @@ namespace Cataloger
             }
 
             // Ajoute dans le DI de Microsoft pour les types dérivés de IImaPresenter
-            Type typeImaChildPresenter = typeof(CatalogerChildPresenter<>);
+            Type typeChildPresenter = typeof(CatalogerChildPresenter<>);
 
-            foreach (Type item in TypeGetter.GetClassTypesByBaseType(typeImaChildPresenter, this.GetType().Assembly))
+            foreach (Type item in TypeGetter.GetClassTypesByBaseType(typeChildPresenter, this.GetType().Assembly))
             {
                 var name = item.Name.Split('`');
 
-                if (name[0] != typeImaPresenter.Name && name[0] != "CatalogerChildPresenter")
+                if (name[0] != typePresenter.Name && name[0] != "CatalogerChildPresenter")
                 {
                     Type typeInterface = ObtenirChildPresenter(item);
 

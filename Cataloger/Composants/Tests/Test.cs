@@ -1,8 +1,8 @@
-﻿using BaseWinform.Attributes;
+using BaseWinform.Attributes;
 using Cataloger.Views;
 using Cataloger.Composantes;
 
-namespace Cataloger.Composants.Tests
+namespace Cataloger.Composants
 {
     [WinformURL("Tests")]
     public partial class Test : CatalogerComposante, ITestView

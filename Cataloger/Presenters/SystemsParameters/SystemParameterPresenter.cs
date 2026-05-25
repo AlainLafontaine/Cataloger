@@ -1,4 +1,4 @@
-﻿using BaseWinform.Attributes;
+using BaseWinform.Attributes;
 using Cataloger.Communs;
 using Cataloger.Core.Entities.SystemsParameters.Dto;
 using Cataloger.Presenters.Bases;
@@ -29,22 +29,22 @@ namespace Cataloger.Presenters.SystemsParameters
             SystemParameterDto skinStyleActif = skinStyles.First(x => x.Key == "Actif");
 
             Composante!.LoadSkinStyles(skinStyles, skinStyleActif);
+            Composante.OnSkinStyleChanged += HandleSkinStyleChanged;
         }
 
         public override void ReleasePresenter()
         {
+            Composante!.OnSkinStyleChanged -= HandleSkinStyleChanged;
 
             base.ReleasePresenter(); 
         }
 
 
-        private void cbboxSkinStyle_SelectedIndexChanged(object? sender, EventArgs e)
+        private void HandleSkinStyleChanged(object? sender, EventArgs e)
         {
-            SystemParameterDto? skinStyle = systemParameterService.GetSystemParameter("Skin style", "Actif");
+            SystemParameterDto skinStyleActif = Composante!.SkinStyleActif!;
 
-            skinStyle!.ValString = Composante!.SkinStyleActif!.ValString;
-            systemParameterService.ModifySystemParameter(skinStyle);
-
+            systemParameterService.ModifySystemParameter(skinStyleActif);
             UserLookAndFeel.Default.SetSkinStyle(Composante!.SkinStyleActif!.ValString);
         }
     }
